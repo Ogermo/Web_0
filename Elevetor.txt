@@ -1,0 +1,187 @@
+//1
+{
+    init: function(elevators, floors) {
+        var elevator = elevators[0]; // Let's use the first elevator
+
+        // Whenever the elevator is idle (has no more queued destinations) ...
+        elevator.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator.goToFloor(0);
+            elevator.goToFloor(1);
+            elevator.goToFloor(2);
+        });
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+
+//2
+{
+    init: function(elevators, floors) {
+        var elevator = elevators[0]; // Let's use the first elevator
+
+        // Whenever the elevator is idle (has no more queued destinations) ...
+        elevator.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator.goToFloor(0);
+            elevator.goToFloor(1);
+            elevator.goToFloor(2);
+            elevator.goToFloor(3);
+            elevator.goToFloor(4);
+
+        });
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+
+//3
+{
+    init: function(elevators, floors) {
+        var elevator = elevators[0]; // Let's use the first elevator
+
+        // Whenever the elevator is idle (has no more queued destinations) ...
+        elevator.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator.goToFloor(0);
+            elevator.goToFloor(1);
+            elevator.goToFloor(2);
+            elevator.goToFloor(3);
+            elevator.goToFloor(4);
+            elevator.goToFloor(3);
+            elevator.goToFloor(2);
+            elevator.goToFloor(1);
+            elevator.goToFloor(0);
+
+        });
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+
+//4
+{
+    init: function(elevators, floors) {
+        var elevator_1 = elevators[0]; // Let's use the first elevator
+        var elevator_2 = elevators[1];
+
+        // Whenever the elevator is idle (has no more queued destinations) ...
+        elevator_1.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_1.goToFloor(0);
+        });
+        
+        elevator_1.on("floor_button_pressed", function(floorNum) {
+            elevator_1.goToFloor(floorNum);
+        } );
+        
+        elevator_2.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_2.goToFloor(0);
+        });
+
+        elevator_2.on("floor_button_pressed", function(floorNum) {
+            elevator_2.goToFloor(floorNum);
+        } );
+
+        
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+
+//5
+{
+    init: function(elevators, floors) {
+        var elevator_1 = elevators[0]; // Let's use the first elevator
+        var elevator_2 = elevators[1];
+        var elevator_3 = elevators[2];
+        var elevator_4 = elevators[3];
+        
+        // Whenever the elevator is idle (has no more queued destinations) ...
+        elevator_1.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_1.goToFloor(0);
+        });
+        elevator_1.on("floor_button_pressed", function(floorNum) {
+            elevator_1.goToFloor(floorNum);
+        } );
+        
+        elevator_2.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_2.goToFloor(0);
+        });
+        elevator_2.on("floor_button_pressed", function(floorNum) {
+            elevator_2.goToFloor(floorNum);
+        } );
+        
+        elevator_3.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_3.goToFloor(0);
+        });
+        elevator_3.on("floor_button_pressed", function(floorNum) {
+            elevator_3.goToFloor(floorNum);
+        } );
+        
+        elevator_4.on("idle", function() {
+            // let's go to all the floors (or did we forget one?)
+            elevator_4.goToFloor(0);
+        });
+
+        elevator_4.on("floor_button_pressed", function(floorNum) {
+            elevator_4.goToFloor(floorNum);
+        } );
+
+        
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+
+//6-7
+{
+    init: function(elevators, floors) {
+        elevators.forEach(function(elevator) {
+
+            elevator.on("floor_button_pressed", function(floorNum) {
+                elevator.goToFloor(floorNum);
+            });
+
+            elevator.on("passing_floor", function(floorNum, direction) {
+                    if (direction == "up" && floors[floorNum].requestedUp) { 
+                        elevator.goToFloor(floorNum, true); 
+                    }
+                    if (direction == "down" && floors[floorNum].requestedDown) { 
+                        elevator.goToFloor(floorNum, true); 
+                    }
+            });
+
+            elevator.on("idle", function() {
+               elevator.goToFloor(0);
+            });
+            
+        });
+        
+        floors.forEach(function(floor) {
+            floor.requestedUp = false;
+            floor.requestedDown = false;
+
+            floor.on("up_button_pressed", function() {
+                floor.requestedUp = true;
+            });
+
+            floor.on("down_button_pressed", function() {
+                floor.requestedDown = true;
+            });
+        });
+
+    },
+        update: function(dt, elevators, floors) {
+            // We normally don't need to do anything here
+        }
+}
